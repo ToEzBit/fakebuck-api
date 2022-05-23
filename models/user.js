@@ -1,45 +1,41 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
+  const User = sequelize.define(
+    "User",
+    {
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          isEmail: true,
+        },
+      },
+      phoneNumber: {
+        type: DataTypes.STRING,
+      },
+      profilePic: {
+        type: DataTypes.STRING,
+      },
+      coverPhoto: {
+        type: DataTypes.STRING,
       },
     },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    email: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: true,
-        isEmail: true,
-      },
-    },
-    phoneNumber: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    profilePic: {
-      type: DataTypes.STRING,
-    },
-    coverPhoto: {
-      type: DataTypes.STRING,
-    },
-  });
+    {
+      underscored: true,
+    }
+  );
   return User;
 };

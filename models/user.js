@@ -33,9 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       phoneNumber: {
         type: DataTypes.STRING,
         unique: true,
-        validate: {
-          isEmail: true,
-        },
       },
       profilePic: {
         type: DataTypes.STRING,

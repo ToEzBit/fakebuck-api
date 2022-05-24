@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 
 const createError = require("../utils/createError");
 const { FRIEND_ACCEPTED, FRIEND_PENDING } = require("../config/constant");
-const friendService = require("../services/friendService");
+const FriendService = require("../services/friendService");
 const { Friend, User } = require("../models/");
 
 exports.getAllFriend = async (req, res, next) => {
@@ -11,16 +11,16 @@ exports.getAllFriend = async (req, res, next) => {
     let users = [];
     if (status?.toUpperCase() === "UNKNOWN") {
       // ------------- find unknown friend   -------------
-      users = await friendService.findUnknown(req.user.id);
+      users = await FriendService.findUnknown(req.user.id);
     } else if (status?.toUpperCase() === "PENDING") {
       // ------------- find Pending friend  Receiver -------------
-      users = await friendService.findPendingFriend(req.user.id);
+      users = await FriendService.findPendingFriend(req.user.id);
     } else if (status?.toUpperCase() === "REQUESTED") {
       // ------------- find request friend   -------------
-      users = await friendService.findRequestFriend(req.user.id);
+      users = await FriendService.findRequestFriend(req.user.id);
     } else {
       // ------------- find Accepted friend -------------
-      users = await friendService.findAcceptedFriend(req.user.id);
+      users = await FriendService.findAcceptedFriend(req.user.id);
     }
 
     res.json({ users });

@@ -101,7 +101,7 @@ exports.deleteFriend = async (req, res, next) => {
     ) {
       createError("you have no permission", 403);
     }
-    await friend.destroy();
+    await friend.destroy(); //instance method
     res.status(204).json();
   } catch (err) {
     next(err);

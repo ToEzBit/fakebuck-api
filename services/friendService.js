@@ -5,7 +5,7 @@ const { FRIEND_ACCEPTED, FRIEND_PENDING } = require("../config/constant");
 
 exports.findAcceptedFriend = async (id) => {
   //WHERE (requestToId = 1 Or requestFromId = 1) AND status = "ACCEPTED"
-  const friend = await Friend.findAll({
+  const friends = await Friend.findAll({
     where: {
       [Op.or]: [{ requestToId: id }, { requestFromId: id }],
       status: FRIEND_ACCEPTED,
@@ -13,7 +13,7 @@ exports.findAcceptedFriend = async (id) => {
   });
   // console.log(JSON.stringify(friend, null, 2));
 
-  const friendIds = friend.map((el) =>
+  const friendIds = friends.map((el) =>
     el.requestToId === id ? el.requestFromId : el.requestToId
   );
 
@@ -47,7 +47,7 @@ exports.findPendingFriend = async (id) => {
 exports.findRequestFriend = async (id) => {
   const friends = await Friend.findAll({
     where: {
-      requestToId: id,
+      requestFromId: id,
       status: FRIEND_PENDING,
     },
     include: {
@@ -64,13 +64,13 @@ exports.findRequestFriend = async (id) => {
 };
 
 exports.findUnknown = async (id) => {
-  const friend = await Friend.findAll({
+  const friends = await Friend.findAll({
     where: {
       [Op.or]: [{ requestToId: id }, { requestFromId: id }],
     },
   });
 
-  const friendIds = friend.map((el) =>
+  const friendIds = friends.map((el) =>
     el.requestToId === id ? el.requestFromId : el.requestToId
   );
 

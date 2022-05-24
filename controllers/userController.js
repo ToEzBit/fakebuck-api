@@ -5,6 +5,7 @@ const fs = require("fs");
 const { User } = require("../models");
 
 exports.getMe = async (req, res) => {
+  console.log(req.file);
   const user = JSON.parse(JSON.stringify(req.user));
   const friends = await FriendService.findAcceptedFriend(req.user.id);
 
@@ -18,6 +19,7 @@ exports.getMe = async (req, res) => {
 exports.updateProfile = async (req, res, next) => {
   try {
     // console.log(req.file);
+
     cloudinary.uploader.upload(req.file.path, async (error, result) => {
       if (error) {
         return next(error);

@@ -3,6 +3,20 @@ const { Op } = require("sequelize");
 const { Friend, User } = require("../models");
 const { FRIEND_ACCEPTED, FRIEND_PENDING } = require("../config/constant");
 
+exports.findFriendId = async (id) => {
+  const friends = await Friend.findAll({
+    where: {
+      [Op.or]: [{ requestToId: id }, { requestFromId: id }],
+      status: FRIEND_ACCEPTED,
+    },
+  });
+  const friendIds = friends.map((el) =>
+    el.requestToId === id ? el.requestFromId : el.requestToId
+  );
+
+  return friendIds;
+};
+
 exports.findAcceptedFriend = async (id) => {
   //WHERE (requestToId = 1 Or requestFromId = 1) AND status = "ACCEPTED"
   const friends = await Friend.findAll({

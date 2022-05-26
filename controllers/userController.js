@@ -13,7 +13,7 @@ exports.getMe = async (req, res) => {
 
   user.friends = friends;
 
-  res.json(user);
+  res.json({ user });
 
   // res.json({ user: req.user, friends });
 };

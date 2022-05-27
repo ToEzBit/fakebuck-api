@@ -7,7 +7,6 @@ const createError = require("../utils/createError");
 const { User } = require("../models");
 
 exports.getMe = async (req, res) => {
-  console.log(req.file);
   const user = JSON.parse(JSON.stringify(req.user));
   const friends = await FriendService.findAcceptedFriend(req.user.id);
 
@@ -51,7 +50,7 @@ exports.updateProfile = async (req, res, next) => {
     if (req.files.profilePic) {
       fs.unlinkSync(req.files.profilePic[0].path);
     }
-    if (req.files.profilePic) {
+    if (req.files.coverPhoto) {
       fs.unlinkSync(req.files.coverPhoto[0].path);
     }
   }

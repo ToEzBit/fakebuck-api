@@ -1,7 +1,7 @@
 module.exports = (err, req, res, next) => {
-  if (process.env.NODE_ENV === "development") {
-    console.log(err);
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   console.log(err);
+  // }
 
   if (
     err.name === "SequelizeValidationError" ||

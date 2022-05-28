@@ -90,6 +90,7 @@ exports.deleteFriend = async (req, res, next) => {
   try {
     const { id } = req.params;
     const friend = await Friend.findOne({ where: { id } });
+    console.log(id);
 
     if (!friend) {
       createError("friend request not found", 400);

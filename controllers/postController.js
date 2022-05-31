@@ -172,8 +172,9 @@ exports.getUserPost = async (req, res, next) => {
     userId.push(req.user.id);
     const posts = await Post.findAll({
       where: { userId },
+      order: [["createdAt", "DESC"]],
       attributes: {
-        exclude: ["createdAt", "userId"],
+        exclude: ["userId"],
       },
       include: [
         {
@@ -192,6 +193,24 @@ exports.getUserPost = async (req, res, next) => {
           model: Comment,
           attributes: {
             exclude: ["createdAt", "userId"],
+          },
+          include: {
+            model: User,
+            attributes: {
+              exclude: [
+                "password",
+                "email",
+                "phoneNumber",
+                "coverPhoto",
+                "createdAt",
+              ],
+            },
+          },
+        },
+        {
+          model: Like,
+          attributes: {
+            exclude: ["createdAt"],
           },
           include: {
             model: User,
